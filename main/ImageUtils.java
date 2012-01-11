@@ -107,7 +107,7 @@ public class ImageUtils {
             new Rectangle(board.x+size, board.y,
                           w-board.x-size, size),        // справа от поля
             new Rectangle(0, board.y+size,
-                          w, h-board.x-size)            // снизу от поля
+                          w, h-board.y-size)            // снизу от поля
         };
         
         for (int i = 0; i < partsOfImage.length; i++) {
