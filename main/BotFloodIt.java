@@ -3,19 +3,19 @@ package main;
 import java.util.ArrayList;
 
 /**
- * Класс логики бота.
+ * РљР»Р°СЃСЃ Р»РѕРіРёРєРё Р±РѕС‚Р°.
  * @author aNNiMON
  */
 public class BotFloodIt {
     
-    /* Количество цветов в игре */
+    /* РљРѕР»РёС‡РµСЃС‚РІРѕ С†РІРµС‚РѕРІ РІ РёРіСЂРµ */
     private static final int MAX_COLORS = 6;
-    /* На сколько шагов вперёд просчитывать ход */
+    /* РќР° СЃРєРѕР»СЊРєРѕ С€Р°РіРѕРІ РІРїРµСЂС‘Рґ РїСЂРѕСЃС‡РёС‚С‹РІР°С‚СЊ С…РѕРґ */
     private static final int FILL_STEPS = 4;
     
-    /* Игровое поле */
+    /* РРіСЂРѕРІРѕРµ РїРѕР»Рµ */
     private byte[][] table;
-    /* Цвета, соответствующие ID */
+    /* Р¦РІРµС‚Р°, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ ID */
     private int[] colors;
 
     public BotFloodIt(int[][] table) {
@@ -27,16 +27,16 @@ public class BotFloodIt {
     }
     
     /**
-     * Получить цвета клеток в палитре
-     * @return массив цветов RGB
+     * РџРѕР»СѓС‡РёС‚СЊ С†РІРµС‚Р° РєР»РµС‚РѕРє РІ РїР°Р»РёС‚СЂРµ
+     * @return РјР°СЃСЃРёРІ С†РІРµС‚РѕРІ RGB
      */
     public int[] getColors() {
         return colors;
     }
     
     /**
-     * Получить последовательность заливки цветов
-     * @return массив с идентификаторами цветов для заливки
+     * РџРѕР»СѓС‡РёС‚СЊ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ Р·Р°Р»РёРІРєРё С†РІРµС‚РѕРІ
+     * @return РјР°СЃСЃРёРІ СЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°РјРё С†РІРµС‚РѕРІ РґР»СЏ Р·Р°Р»РёРІРєРё
      */
     public byte[] getFillSequence() {
         byte[][] copyTable = copyTable(table);
@@ -52,28 +52,28 @@ public class BotFloodIt {
     }
     
     /*
-     * Получить индекс следующего цвета для заливки
+     * РџРѕР»СѓС‡РёС‚СЊ РёРЅРґРµРєСЃ СЃР»РµРґСѓСЋС‰РµРіРѕ С†РІРµС‚Р° РґР»СЏ Р·Р°Р»РёРІРєРё
      */
     private byte getNextFillColor(byte[][] table) {
-        // Количество вариантов заливок
+        // РљРѕР»РёС‡РµСЃС‚РІРѕ РІР°СЂРёР°РЅС‚РѕРІ Р·Р°Р»РёРІРѕРє
         int fillSize = (int) Math.pow(MAX_COLORS, FILL_STEPS);
         int[] fillRate = new int[fillSize];
-        // Заполняем значениями степени заливки
+        // Р—Р°РїРѕР»РЅСЏРµРј Р·РЅР°С‡РµРЅРёСЏРјРё СЃС‚РµРїРµРЅРё Р·Р°Р»РёРІРєРё
         int[] fillPow = new int[FILL_STEPS];
         for (int i = 0; i < FILL_STEPS; i++) {
             fillPow[i] = (int) Math.pow(MAX_COLORS, i);
         }
-        // Заливаем FILL_STEPS раз MAX_COLORS вариантов
+        // Р—Р°Р»РёРІР°РµРј FILL_STEPS СЂР°Р· MAX_COLORS РІР°СЂРёР°РЅС‚РѕРІ
         for (int i = 0; i < fillSize; i++) {
             byte[][] iteration = copyTable(table);
             for (int j = 0; j < FILL_STEPS; j++) {
                 byte fillColor =  (byte) (i / fillPow[j] % MAX_COLORS);
                 fillTable(iteration, fillColor);
             }
-            // Подсчитываем число залитых ячеек
+            // РџРѕРґСЃС‡РёС‚С‹РІР°РµРј С‡РёСЃР»Рѕ Р·Р°Р»РёС‚С‹С… СЏС‡РµРµРє
             fillRate[i] = getFillCount(iteration);
         }
-        // Теперь ищем максимально залитый участок из FILL_STEPS итераций заливки
+        // РўРµРїРµСЂСЊ РёС‰РµРј РјР°РєСЃРёРјР°Р»СЊРЅРѕ Р·Р°Р»РёС‚С‹Р№ СѓС‡Р°СЃС‚РѕРє РёР· FILL_STEPS РёС‚РµСЂР°С†РёР№ Р·Р°Р»РёРІРєРё
         int maxArea = fillRate[0];
         int maxColor = 0;
         for (int i = 1; i < fillSize; i++) {
@@ -82,30 +82,30 @@ public class BotFloodIt {
                 maxArea = fillRate[i];
             }
         }
-        // Получаем цвет с наибольшей площадью дальнейшей заливки
+        // РџРѕР»СѓС‡Р°РµРј С†РІРµС‚ СЃ РЅР°РёР±РѕР»СЊС€РµР№ РїР»РѕС‰Р°РґСЊСЋ РґР°Р»СЊРЅРµР№С€РµР№ Р·Р°Р»РёРІРєРё
         byte colorID = (byte) (maxColor % MAX_COLORS);
         fillTable(table, colorID);
         return colorID;
     }
     
     /*
-     * Преобразование массива с цветами в массив с идентификаторами
+     * РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РјР°СЃСЃРёРІР° СЃ С†РІРµС‚Р°РјРё РІ РјР°СЃСЃРёРІ СЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°РјРё
      */
     private byte[][] colorsToIds(int[][] tableColor) {
         int size = tableColor.length;
         byte[][] out = new byte[size][size];
-        int colorsReaded = 1; // сколько цветов распознано
+        int colorsReaded = 1; // СЃРєРѕР»СЊРєРѕ С†РІРµС‚РѕРІ СЂР°СЃРїРѕР·РЅР°РЅРѕ
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 int color = tableColor[i][j];
                 for (byte k = 0; k < colorsReaded; k++) {
-                    // Добавляем цвет в палитру
+                    // Р”РѕР±Р°РІР»СЏРµРј С†РІРµС‚ РІ РїР°Р»РёС‚СЂСѓ
                     if (colors[k] == -1) {
                         colors[k] = color;
                         colorsReaded++;
                         if (colorsReaded > MAX_COLORS) colorsReaded = MAX_COLORS;
                     }
-                    // Если цвет уже в палитре, то присваиваем ему ID
+                    // Р•СЃР»Рё С†РІРµС‚ СѓР¶Рµ РІ РїР°Р»РёС‚СЂРµ, С‚Рѕ РїСЂРёСЃРІР°РёРІР°РµРј РµРјСѓ ID
                     if (color == colors[k]) {
                         out[i][j] = k;
                         break;
@@ -117,9 +117,9 @@ public class BotFloodIt {
     }
     
     /**
-     * Залить заданное поле цветом color
-     * @param table игровое поле для заливки
-     * @param color цвет заливки
+     * Р—Р°Р»РёС‚СЊ Р·Р°РґР°РЅРЅРѕРµ РїРѕР»Рµ С†РІРµС‚РѕРј color
+     * @param table РёРіСЂРѕРІРѕРµ РїРѕР»Рµ РґР»СЏ Р·Р°Р»РёРІРєРё
+     * @param color С†РІРµС‚ Р·Р°Р»РёРІРєРё
      */
     private void fillTable(byte[][] table, byte color) {
         if (table[0][0] == color) return;
@@ -127,14 +127,14 @@ public class BotFloodIt {
     }
     
     /*
-     * Заливка поля по координатам
+     * Р—Р°Р»РёРІРєР° РїРѕР»СЏ РїРѕ РєРѕРѕСЂРґРёРЅР°С‚Р°Рј
      */
     private void fill(byte[][] table, int x, int y, byte prevColor, byte color) {
-        // Проверка на выход за границы игрового поля
+        // РџСЂРѕРІРµСЂРєР° РЅР° РІС‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†С‹ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
         if ( (x < 0) || (y < 0) || (x >= table.length) || (y >= table.length) ) return;
         if (table[x][y] == prevColor) {
             table[x][y] = color;
-            // Заливаем смежные области
+            // Р—Р°Р»РёРІР°РµРј СЃРјРµР¶РЅС‹Рµ РѕР±Р»Р°СЃС‚Рё
             fill(table, x-1, y, prevColor, color);
             fill(table, x+1, y, prevColor, color);
             fill(table, x, y-1, prevColor, color);
@@ -143,24 +143,24 @@ public class BotFloodIt {
     }
     
     /**
-     * Получить количество залитых ячеек
-     * @param table игровое поле
+     * РџРѕР»СѓС‡РёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°Р»РёС‚С‹С… СЏС‡РµРµРє
+     * @param table РёРіСЂРѕРІРѕРµ РїРѕР»Рµ
      */
     private int getFillCount(byte[][] table) {
         return getCount(table, 0, 0, table[0][0]);
     }
     
     /*
-     * Подсчет залитых ячеек по координатам
+     * РџРѕРґСЃС‡РµС‚ Р·Р°Р»РёС‚С‹С… СЏС‡РµРµРє РїРѕ РєРѕРѕСЂРґРёРЅР°С‚Р°Рј
      */
     private int getCount(byte[][] table, int x, int y, byte color) {
-        // Проверка на выход за границы игрового поля
+        // РџСЂРѕРІРµСЂРєР° РЅР° РІС‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†С‹ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
         if ( (x < 0) || (y < 0) || (x >= table.length) || (y >= table.length) ) return 0;
         int count = 0;
         if (table[x][y] == color) {
             table[x][y] = -1;
             count = 1;
-            // Считаем смежные ячейки
+            // РЎС‡РёС‚Р°РµРј СЃРјРµР¶РЅС‹Рµ СЏС‡РµР№РєРё
             count += getCount(table, x-1, y, color);
             count += getCount(table, x+1, y, color);
             count += getCount(table, x, y-1, color);
@@ -170,7 +170,7 @@ public class BotFloodIt {
     }
     
     /*
-     * Проверка, залита ли вся область одним цветом
+     * РџСЂРѕРІРµСЂРєР°, Р·Р°Р»РёС‚Р° Р»Рё РІСЃСЏ РѕР±Р»Р°СЃС‚СЊ РѕРґРЅРёРј С†РІРµС‚РѕРј
      */
     private boolean gameCompleted(byte[][] table) {
         byte color = table[0][0];
@@ -184,7 +184,7 @@ public class BotFloodIt {
     }
     
     /*
-     * Копирование массива игрового поля
+     * РљРѕРїРёСЂРѕРІР°РЅРёРµ РјР°СЃСЃРёРІР° РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
      */
     private byte[][] copyTable(byte[][] table) {
         int size = table.length;

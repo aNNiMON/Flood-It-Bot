@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 /**
- * Окно приложения.
+ * РћРєРЅРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ
  * @author aNNiMON
  */
 public class RobotFrame extends JFrame {
 
-    /* Статус работы приложения */
+    /* РЎС‚Р°С‚СѓСЃ СЂР°Р±РѕС‚С‹ РїСЂРёР»РѕР¶РµРЅРёСЏ */
     private boolean isRunning;
     
     private Thread robotAction;
@@ -201,7 +201,7 @@ public class RobotFrame extends JFrame {
                     int windowX, windowY, boardSize, cellSize;
                     BufferedImage detectImage;
                     RobotUtils robot;
-                    // Получаем настройки
+                    // РџРѕР»СѓС‡Р°РµРј РЅР°СЃС‚СЂРѕР№РєРё
                     try {
                         robot = new RobotUtils();
                         detectImage = robot.getImage(-1, -1, -1, -1);
@@ -214,9 +214,9 @@ public class RobotFrame extends JFrame {
                         return;
                     }
                     ImageUtils iu = new ImageUtils(detectImage, boardSize, cellSize, windowX, windowY);
-                    // Обрезаем картинку до вида игрового поля
+                    // РћР±СЂРµР·Р°РµРј РєР°СЂС‚РёРЅРєСѓ РґРѕ РІРёРґР° РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
                     detectImage = iu.getBoardImage();
-                    // Получаем цвета из картинки
+                    // РџРѕР»СѓС‡Р°РµРј С†РІРµС‚Р° РёР· РєР°СЂС‚РёРЅРєРё
                     int[][] table = new int[boardSize][boardSize];
                     int offset = cellSize / 2;
                     for (int i = 0; i < boardSize; i++) {
@@ -226,17 +226,17 @@ public class RobotFrame extends JFrame {
                         }
                     }
                     BotFloodIt bfi = new BotFloodIt(table);
-                    // Получаем результирующую последовательность цветов 
+                    // РџРѕР»СѓС‡Р°РµРј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰СѓСЋ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ С†РІРµС‚РѕРІ 
                     byte[] result = bfi.getFillSequence();
                     int[] colors = bfi.getColors();
-                    // Пытаемся получить координаты кнопок для автоматической игры
+                    // РџС‹С‚Р°РµРјСЃСЏ РїРѕР»СѓС‡РёС‚СЊ РєРѕРѕСЂРґРёРЅР°С‚С‹ РєРЅРѕРїРѕРє РґР»СЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕР№ РёРіСЂС‹
                     Point[] buttons = iu.getButtons(colors);
                     if (buttons == null) {
-                        // Если не удалось найти кнопки, то просто выводим последовательность в виде картинки
+                        // Р•СЃР»Рё РЅРµ СѓРґР°Р»РѕСЃСЊ РЅР°Р№С‚Рё РєРЅРѕРїРєРё, С‚Рѕ РїСЂРѕСЃС‚Рѕ РІС‹РІРѕРґРёРј РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РІ РІРёРґРµ РєР°СЂС‚РёРЅРєРё
                         BufferedImage out = iu.sequenceToImage(result, colors);
                         showImageWindow("Result: "+result.length+" steps", out);
                     } else {
-                        // Запускаем автоигру
+                        // Р—Р°РїСѓСЃРєР°РµРј Р°РІС‚РѕРёРіСЂСѓ
                         robot.autoClick(buttons, result);
                     }
                     isRunning = false;
@@ -249,7 +249,7 @@ public class RobotFrame extends JFrame {
     }//GEN-LAST:event_startStopActionPerformed
 
     private void checkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButtonActionPerformed
-        if (isRunning) return; // нельзя проверять настройки во время работы
+        if (isRunning) return; // РЅРµР»СЊР·СЏ РїСЂРѕРІРµСЂСЏС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё РІРѕ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
         int windowX, windowY, boardSize, cellSize;
         BufferedImage detectImage;
         RobotUtils robot;
@@ -269,7 +269,7 @@ public class RobotFrame extends JFrame {
     }//GEN-LAST:event_checkButtonActionPerformed
 
     private void detectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detectButtonActionPerformed
-        if (isRunning) return; // нельзя определять настройки во время работы
+        if (isRunning) return; // РЅРµР»СЊР·СЏ РѕРїСЂРµРґРµР»СЏС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё РІРѕ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
         RobotUtils robot;
         try {
             robot = new RobotUtils();
@@ -287,9 +287,9 @@ public class RobotFrame extends JFrame {
     }//GEN-LAST:event_detectButtonActionPerformed
 
     /**
-     * Показать модальное окно с изображением
-     * @param title заголовок окна
-     * @param image изображение
+     * РџРѕРєР°Р·Р°С‚СЊ РјРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ СЃ РёР·РѕР±СЂР°Р¶РµРЅРёРµРј
+     * @param title Р·Р°РіРѕР»РѕРІРѕРє РѕРєРЅР°
+     * @param image РёР·РѕР±СЂР°Р¶РµРЅРёРµ
      * @throws SecurityException
      */
     private void showImageWindow(String title, BufferedImage image) throws SecurityException {

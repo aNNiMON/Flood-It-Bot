@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 /**
- * Работа с классом Robot. 
+ * Р Р°Р±РѕС‚Р° СЃ РєР»Р°СЃСЃРѕРј Robot. 
  * @author aNNiMON
  */
 public class RobotUtils {
@@ -15,16 +15,16 @@ public class RobotUtils {
     private Robot robot;
 
     /**
-     * Конструктор
-     * @throws AWTException ошибка инициализации Robot
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @throws AWTException РѕС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё Robot
      */
     public RobotUtils() throws AWTException {
         robot = new Robot();
     }
 
     /**
-     * Кликнуть в нужную точку
-     * @param click точка по которой нужно кликнуть
+     * РљР»РёРєРЅСѓС‚СЊ РІ РЅСѓР¶РЅСѓСЋ С‚РѕС‡РєСѓ
+     * @param click С‚РѕС‡РєР° РїРѕ РєРѕС‚РѕСЂРѕР№ РЅСѓР¶РЅРѕ РєР»РёРєРЅСѓС‚СЊ
      */
     public void clickPoint(Point click) {
         robot.mouseMove(click.x, click.y);
@@ -34,9 +34,9 @@ public class RobotUtils {
     }
     
     /**
-     * Автоматически воспроизвести заданную последовательность нажатий
-     * @param buttons координаты точек, куда следует нажимать
-     * @param result последовательность id для указания на нужную кнопку
+     * РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІРѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё Р·Р°РґР°РЅРЅСѓСЋ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РЅР°Р¶Р°С‚РёР№
+     * @param buttons РєРѕРѕСЂРґРёРЅР°С‚С‹ С‚РѕС‡РµРє, РєСѓРґР° СЃР»РµРґСѓРµС‚ РЅР°Р¶РёРјР°С‚СЊ
+     * @param result РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ id РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ РЅР° РЅСѓР¶РЅСѓСЋ РєРЅРѕРїРєСѓ
      */
     public void autoClick(Point[] buttons, byte[] result) {
         for (int i = 0; i < result.length; i++) {
@@ -44,8 +44,8 @@ public class RobotUtils {
         }
     }
     /**
-     * Автоматическое написание сообщения
-     * @param text "печатаемый" текст
+     * РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РЅР°РїРёСЃР°РЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ
+     * @param text "РїРµС‡Р°С‚Р°РµРјС‹Р№" С‚РµРєСЃС‚
      */
     public void writeMessage(String text) {
         for (char symbol : text.toCharArray()) {
@@ -64,8 +64,8 @@ public class RobotUtils {
     }
     
     /*
-     * Получение картинки размером [width x height] с экрана с позиции [x, y]
-     * Если width или height равны -1, то возвращаем весь экран.
+     * РџРѕР»СѓС‡РµРЅРёРµ РєР°СЂС‚РёРЅРєРё СЂР°Р·РјРµСЂРѕРј [width x height] СЃ СЌРєСЂР°РЅР° СЃ РїРѕР·РёС†РёРё [x, y]
+     * Р•СЃР»Рё width РёР»Рё height СЂР°РІРЅС‹ -1, С‚Рѕ РІРѕР·РІСЂР°С‰Р°РµРј РІРµСЃСЊ СЌРєСЂР°РЅ.
      */
     public BufferedImage getImage(int x, int y, int width, int height) {
         Rectangle area;
